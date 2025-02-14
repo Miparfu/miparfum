@@ -1,0 +1,25 @@
+@font-face {
+  font-display: swap;
+  font-family: "ProximaNova";
+  font-weight: normal;
+  font-style: normal;
+  src: url("../fonts/ProximaNova/ProximaNova.eot");
+  src: url("../fonts/ProximaNova/ProximaNova.eot@") format("embedded-opentype"), url("../fonts/ProximaNova/ProximaNova.woff") format("woff"), url("https://miparfum.ru/fonts/ProximaNova/ProximaNova.ttf") format("truetype");
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "ProximaNovaBold";
+  font-weight: bold;
+  font-style: normal;
+  src: url("../fonts/ProximaNovaBold/ProximaNovaBold.eot");
+  src: url("../fonts/ProximaNovaBold/ProximaNovaBold.eot@") format("embedded-opentype"), url("../fonts/ProximaNovaBold/ProximaNovaBold.woff") format("woff"), url("https://miparfum.ru/fonts/ProximaNovaBold/ProximaNovaBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: 'Good Vibes Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('GoodVibesPro'),
+      url("../fonts/GoodVibesCyr.ttf") format('truetype');
+}
