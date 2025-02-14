@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
-
 use App\Mail\NewOrderAdmin;
 use App\Mail\PassSendMail;
 use App\Mail\PriceOrder;
@@ -17,7 +15,9 @@ use Illuminate\Support\Str;
 class CartController extends Controller
 {
     public $removeAt;
-    public function render(){
+
+    public function render()
+    {
         cart()->refreshAllItemsData();
         // https://github.com/freshbitsweb/laravel-cart-manager справка по пакету
         //$cart = Product::addToCart(100);
@@ -25,16 +25,17 @@ class CartController extends Controller
         return view('Product.cart');
         //return response(cart()->toArray(), 200);
        //$cart = cart()->removeAt(0); -- индекс массива с товарами
-
     }
 
-
-    public function Detail($id){
+    public function Detail($id)
+    {
         $product = Product::where('slug', $id)->first();
         //dd( $product );
         return view('Product.detail',['product'=>$product,"cart"=>count(cart()->items())]);
     }
-    public function ajax(Request $request){
+
+    public function ajax(Request $request)
+    {
         if($request->input('method') == 'order'){
             $userData = $request->validate([
                 'name' => ['required', 'min:3'],
@@ -95,26 +96,28 @@ class CartController extends Controller
             return response(count(cart()->items()),200);
         }
 
-
-
         return response(['message'=>'method wrong'],405);
     }
-    public function Clear(Request $request){
+
+    public function Clear(Request $request)
+    {
         if($request->input('clr')){
             cart()->clear();
         }
         return true;
     }
 
-    public function Refresh(){
+    public function Refresh()
+    {
         cart()->refreshAllItemsData();
     }
-    public function MailPrice(Request $request){
+
+    public function MailPrice(Request $request)
+    {
 //dd($request->all());
         Mail::to('7535@bk.ru')
             ->cc("zakaz@miparfum.ru")
             ->bcc("admin@vorlis.ru")
             ->send(new PriceOrder($request->all()));
     }
-
 }
