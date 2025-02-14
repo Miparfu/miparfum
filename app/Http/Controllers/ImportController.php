@@ -32,11 +32,11 @@ class ImportController extends Controller
             $records = $reader->getRecords();
             // Название	Цена Количество	Сумма	Валюта	ID	SRC
             // импорт улетает в очередь!
-            
+
             $batch = Bus::batch([])->onQueue('import')->dispatch();
             foreach (collect($records)->chunk(60) as $chunk){
-                
-               
+
+
                // dd($chunk);
                 //dispatch(new ImportJob($chunk))->onQueue('import');
                 $res = $batch->add(new ImportJob($chunk));
