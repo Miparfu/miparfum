@@ -31,11 +31,11 @@ class ImportJob implements ShouldQueue
     {
         $str = false;
 
+        sleep(1);
+
         foreach ($this->records as $data) {
 
-
             if (!empty($data['Название'])) {
-
 
                 if (!empty($data['SRC'])) {
                     $str = @file_get_contents($data['SRC']);

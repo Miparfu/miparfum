@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ImportJob;
 use App\Mail\ImportCompleteMail;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use League\Csv\Reader;
 
@@ -33,8 +35,12 @@ class ImportController extends Controller
             // Название	Цена Количество	Сумма	Валюта	ID	SRC
             // импорт улетает в очередь!
 
+            Product::query()->delete();
+            DB::table('carts')->delete();
+            DB::table('cart_items')->delete();
+
             $batch = Bus::batch([])->onQueue('import')->dispatch();
-            foreach (collect($records)->chunk(60) as $chunk){
+            foreach (collect($records)->chunk(10) as $chunk){
 
 
                // dd($chunk);
@@ -49,6 +55,8 @@ class ImportController extends Controller
 
 public function batch(Request $request)
 {
+    ini_set('memory_limit', '16000M');
+
     $complete = Bus::findBatch($request->input('id'));
     if($complete->finished()){
        Mail::to('7535@bk.ru')->cc("admin@vorlis.ru")->bcc("zakaz@miparfum.ru")->send(new ImportCompleteMail());
